@@ -31,6 +31,7 @@ import { toast } from "sonner";
 import { getImageSize } from "@/utils/imageSize"; // Assuming you have a utility to get image size
 import { useSession } from "next-auth/react";
 import { UserDetailsDto } from "../types/user.dto";
+import { AuthModal } from "@/components/auth-modal";
 
 interface CompressedImage {
   url: string;
@@ -55,10 +56,17 @@ export default function NimbusImageCompressor() {
   const [uploadedUrl, setUploadedUrl] = useState<string | null>(null);
   const [isDownloading, setIsDownloading] = useState(false);
   const [savedSpace, setSavedSpace] = useState<number | null>(null);
+  const [showAuthModal, setShowAuthModal] = useState(false);
   const { data: session, status } = useSession();
   const [user, setUser] = useState<UserDetailsDto | null>(null);
 
   const uploadFile = async (file: File) => {
+    // Check if user is authenticated
+    if (status === "unauthenticated") {
+      setShowAuthModal(true);
+      return null;
+    }
+
     setIsUploading(true);
     try {
       const formData = new FormData();
@@ -92,6 +100,12 @@ export default function NimbusImageCompressor() {
 
   const handleFileSelect = useCallback(
     async (file: File) => {
+      // Check if user is authenticated
+      if (status === "unauthenticated") {
+        setShowAuthModal(true);
+        return;
+      }
+
       if (!file.type.startsWith("image/")) {
         toast.error("Please select an image file.");
         return;
@@ -105,7 +119,7 @@ export default function NimbusImageCompressor() {
       // Automatically upload the file
       await uploadFile(file);
     },
-    [toast]
+    [status, toast]
   );
 
   const handleDrop = useCallback(
@@ -127,6 +141,12 @@ export default function NimbusImageCompressor() {
   };
   const compressImage = async () => {
     if (!selectedFile || !uploadedUrl) return;
+
+    // Check if user is authenticated
+    if (status === "unauthenticated") {
+      setShowAuthModal(true);
+      return;
+    }
 
     setIsCompressing(true);
 
@@ -259,6 +279,7 @@ export default function NimbusImageCompressor() {
   return (
     <div className="min-h-screen bg-background">
       <AuthHeader details={user} />
+      <AuthModal open={showAuthModal} onOpenChange={() => setShowAuthModal(false)} />
 
       <div className="p-4">
         <div className="max-w-6xl mx-auto">

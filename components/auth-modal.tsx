@@ -3,7 +3,7 @@
 import type React from "react";
 
 import { useState } from "react";
-import { Github, Chrome } from "lucide-react";
+import { Github, Chrome, LogIn } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -87,6 +87,45 @@ export function AuthModal({ open, onOpenChange }: AuthModalProps) {
               Policy.
             </p>
           </div>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+interface SignInModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+export function SignInModal({ isOpen, onClose }: SignInModalProps) {
+  return (
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="sm:max-w-[425px]">
+        <DialogHeader>
+          <DialogTitle>Sign in required</DialogTitle>
+          <DialogDescription>
+            You need to sign in to use this feature. Please sign in to continue.
+          </DialogDescription>
+        </DialogHeader>
+        <div className="flex flex-col gap-4 py-4">
+          <Button
+            className="w-full"
+            onClick={() =>
+              signIn("github", { callbackUrl: window.location.href })
+            }
+          >
+            <Github className="mr-2 h-4 w-4" /> Continue with GitHub
+          </Button>
+          <Button
+            variant="outline"
+            className="w-full"
+            onClick={() =>
+              signIn(undefined, { callbackUrl: window.location.href })
+            }
+          >
+            <LogIn className="mr-2 h-4 w-4" /> Sign in with other providers
+          </Button>
         </div>
       </DialogContent>
     </Dialog>
