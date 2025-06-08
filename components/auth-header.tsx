@@ -141,7 +141,7 @@ export function AuthHeader({ details }: { details: UserDetailsDto | null }) {
                             <div className="flex items-center justify-between">
                               <div className="flex items-center">
                                 <Zap className="mr-2 h-4 w-4 text-amber-500" />
-                                <span className="text-sm">Transformsa</span>
+                                <span className="text-sm">Transforms</span>
                               </div>
                               <Badge variant="outline" className="ml-auto">
                                 {formatNumber(details.convertCredits)} left
