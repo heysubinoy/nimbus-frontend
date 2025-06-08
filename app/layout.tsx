@@ -5,7 +5,8 @@ import { MantineProvider } from "@mantine/core";
 import "@mantine/dropzone/styles.css";
 import Providers from "./providers";
 import { getSession } from "@/lib/auth";
-import { ThemeProvider } from "@/components/ThemeProvider"
+import { ThemeProvider } from "@/components/ThemeProvider";
+import { Toaster } from "@/components/ui/toaster";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -21,7 +22,6 @@ export default async function RootLayout({
   const session = await getSession();
   return (
     <html lang="en">
-
       <Providers session={session}>
         <body className={inter.className}>
           <ThemeProvider
@@ -30,7 +30,10 @@ export default async function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <MantineProvider>{children}</MantineProvider>
+            <MantineProvider>
+              <Toaster />
+              {children}
+            </MantineProvider>
           </ThemeProvider>
         </body>
       </Providers>

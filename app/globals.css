@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 .divider {
   font-size: 10px;
   display: flex;
@@ -13,6 +12,62 @@
 .divider::after {
   content: "";
   height: 1px;
-  background-color: silver;
+  background-color: hsl(var(--border));
   flex-grow: 1;
+}
+
+@layer base {
+  :root {
+    --background: 329 100% 95%;
+    --foreground: 329 5% 0%;
+    --card: 329 50% 90%;
+    --card-foreground: 329 5% 10%;
+    --popover: 329 100% 95%;
+    --popover-foreground: 329 100% 0%;
+    --primary: 329 62% 42%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 329 30% 70%;
+    --secondary-foreground: 0 0% 0%;
+    --muted: 291 30% 85%;
+    --muted-foreground: 329 5% 35%;
+    --accent: 291 30% 80%;
+    --accent-foreground: 329 5% 10%;
+    --destructive: 0 100% 30%;
+    --destructive-foreground: 329 5% 90%;
+    --border: 329 30% 50%;
+    --input: 329 30% 18%;
+    --ring: 329 62% 42%;
+    --radius: 0.5rem;
+  }
+  .dark {
+    --background: 329 50% 5%;
+    --foreground: 329 5% 90%;
+    --card: 329 50% 0%;
+    --card-foreground: 329 5% 90%;
+    --popover: 329 50% 5%;
+    --popover-foreground: 329 5% 90%;
+    --primary: 329 62% 42%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 329 30% 10%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 291 30% 15%;
+    --muted-foreground: 329 5% 60%;
+    --accent: 291 30% 15%;
+    --accent-foreground: 329 5% 90%;
+    --destructive: 0 100% 30%;
+    --destructive-foreground: 329 5% 90%;
+    --border: 329 30% 18%;
+    --input: 329 30% 18%;
+    --ring: 329 62% 42%;
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
 }

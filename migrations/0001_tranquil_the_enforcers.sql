@@ -1,0 +1,1 @@
+ALTER TABLE `users` ADD `convert_credits` integer DEFAULT 20 NOT NULL;
