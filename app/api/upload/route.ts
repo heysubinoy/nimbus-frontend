@@ -69,7 +69,7 @@ export async function POST(request: NextRequest) {
       await s3.send(new PutObjectCommand({ Bucket, Key, Body }));
 
       return NextResponse.json(
-        { url: "http://" + process.env.BACKEND_SERVER + "/" + Key },
+        { url: "https://" + process.env.BACKEND_SERVER + "/" + Key },
         { status: 200 }
       );
     } catch (error) {
