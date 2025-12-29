@@ -7,6 +7,7 @@ import Providers from "./providers";
 import { getSession } from "@/lib/auth";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { Toaster } from "@/components/ui/toaster";
+import { SAnalytics } from "sanalytics";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -32,6 +33,7 @@ export default async function RootLayout({
           >
             <MantineProvider>
               <Toaster />
+              <SAnalytics />
               {children}
             </MantineProvider>
           </ThemeProvider>
